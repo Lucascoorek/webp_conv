@@ -18,6 +18,8 @@
   "homepage": "https://github.com/Lucascoorek/webp_conv#readme",
   "dependencies": {
     "imagemin": "^7.0.1",
-    "imagemin-webp": "^6.0.0"
+    "imagemin-dir": "^1.0.0-alpha.1",
+    "imagemin-webp": "^6.0.0",
+    "tar": "^6.0.5"
   }
 }
