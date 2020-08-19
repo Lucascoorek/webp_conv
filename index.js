@@ -1,6 +1,7 @@
 const imagemin = require("imagemin-dir");
 const imageminWebp = require("imagemin-webp");
 const tar = require("tar");
+const rimraf = require("rimraf");
 const fs = require("fs");
 
 const inputPath = "storage";
@@ -8,7 +9,7 @@ const outputPath = `${inputPath}-compressed`;
 const imageExtensions = "jpg,jpeg,png";
 
 (async () => {
-  const files = await imagemin([`${inputPath}/**/*.{${imageExtensions}}`], {
+  await imagemin([`${inputPath}/**/*.{${imageExtensions}}`], {
     destination: outputPath,
     plugins: [imageminWebp()],
   });
@@ -21,10 +22,10 @@ const imageExtensions = "jpg,jpeg,png";
       [outputPath]
     )
     .pipe(fs.createWriteStream(`${outputPath}.tgz`));
+
   tarFinish.on("finish", () => {
-    fs.rmdir(outputPath, { recursive: true }, (err) => {
-      if (err) throw err;
-      console.log("finish");
+    rimraf(outputPath, function () {
+      console.log("done");
     });
   });
 })();
