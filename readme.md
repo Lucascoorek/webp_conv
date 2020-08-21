@@ -12,17 +12,16 @@ $ cd webp_conv
 $ npm install
 ```
 
-Add folder to project's root dir with images you want to convert. Set inputPath const to match folder name. Conversion will preserve folder structure and convert only files you define with imageExtensions const. Files with other extensions will be ommited.
+Conversion will preserve folder structure and convert only files you define with imageExtensions const. Files with other extensions will be pasted to new compressed version of the folder.
 
 ```javascript
-const inputPath = "inputFolderName";
 const imageExtensions = "jpg,jpeg,png";
 ```
 
-Convert and commpress folder by running:
+Convert folder by running:
 
 ```sh
-$ node index.js
+$ node index.js pathToYourFolder
 ```
 
-You'll find compressd version of your folder in project's root dir.
+You'll find compressed version of your folder in the same directory as the original folder.

@@ -1,10 +1,14 @@
 const imagemin = require("imagemin-dir");
 const imageminWebp = require("imagemin-webp");
-const tar = require("tar");
 const rimraf = require("rimraf");
-const fs = require("fs");
+var mergedirs = require('merge-dirs').default;
 
-const inputPath = "storage";
+const path = process.argv[2]
+const folderName = path.split("/");
+
+mergedirs(path, folderName[folderName.length-1]);
+
+const inputPath = folderName[folderName.length-1];
 const outputPath = `${inputPath}-compressed`;
 const imageExtensions = "jpg,jpeg,png";
 
@@ -14,18 +18,16 @@ const imageExtensions = "jpg,jpeg,png";
     plugins: [imageminWebp()],
   });
 
-  const tarFinish = tar
-    .c(
-      {
-        gzip: true, // this will perform the compression too
-      },
-      [outputPath]
-    )
-    .pipe(fs.createWriteStream(`${outputPath}.tgz`));
+  mergedirs(inputPath, outputPath);
+  folderName[folderName.length-1] = outputPath
+  const createPath = folderName.join("/");  
+  mergedirs(outputPath, createPath);
 
-  tarFinish.on("finish", () => {
-    rimraf(outputPath, function () {
-      console.log("done");
-    });
+  rimraf(inputPath, function () {
+    rimraf(outputPath, function(){
+      console.log("done...");
+    })
   });
+
+
 })();
