@@ -12,7 +12,7 @@ $ cd webp_conv
 $ npm install
 ```
 
-Conversion will preserve folder structure and convert only files you define with imageExtensions const. Files with other extensions will be pasted to new compressed version of the folder.
+Conversion will preserve folder structure and convert only files you define with imageExtensions const. All files, also with other extensions will be copied to new compressed version of the folder.
 
 ```javascript
 const imageExtensions = "jpg,jpeg,png";
